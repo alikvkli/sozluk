@@ -1,16 +1,17 @@
 import * as React from 'react';
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-
-export default function Index() {
+import {Container, Stack} from "@mui/material";
+import {Fragment} from "react";
+import Navbar from "../src/components/navbar/Navbar";
+import Sidebar from "../src/components/sidebar/Sidebar";
+import Feed from "../src/components/feed/Feed";
+export default function Index({mode,setMode}) {
   return (
-    <Container maxWidth="sm">
-      <Box sx={{ my: 4 }}>
-        <Typography variant="h4" component="h1" gutterBottom>
-          Welcome to home page!
-        </Typography>
-      </Box>
-    </Container>
+    <Fragment>
+        <Navbar/>
+        <Stack direction="row" flexWrap="wrap" spacing={2} justifyContent="flex-start">
+            <Sidebar/>
+            <Feed/>
+        </Stack>
+    </Fragment>
   );
 }
