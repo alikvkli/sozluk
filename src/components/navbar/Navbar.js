@@ -1,22 +1,32 @@
-import {useState} from "react";
+import {useState, Fragment, useRef} from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import SettingsIcon from "@mui/icons-material/Settings";
+import MenuIcon from "@mui/icons-material/Menu";
+import AddIcon from '@mui/icons-material/Add';
+import MoreIcon from '@mui/icons-material/MoreVert';
 import LogoutIcon from "@mui/icons-material/Logout";
+import CloseIcon from '@mui/icons-material/Close';
 import * as Styled from "./Navbar.styles";
 import {
-    AppBar, Badge, Avatar, Typography, Menu, MenuItem, ListItemIcon, Switch
+    Avatar, Typography, Menu, MenuItem, ListItemIcon, Switch, Toolbar, IconButton, Fab, Box, styled, Divider
 } from "@mui/material";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import {useDispatch, useSelector} from "react-redux";
-import {setMode} from "../../redux/appSlice";
+import {setMode, showSideBar} from "../../redux/appSlice";
+import useOnClickOutside from "../../hooks/useOnClickOutside";
 
+const StyledFab = styled(Fab)({
+    position: 'absolute', zIndex: 1, top: -30, left: 0, right: 0, margin: '0 auto',
+});
 
 export default function Navbar() {
-    const {mode} = useSelector(state => state.app);
     const dispatch = useDispatch();
+    const searchRef = useRef();
+    const {sideBar} = useSelector(state => state.app);
     const [anchorEl, setAnchorEl] = useState(null);
+    const [searchResult, setSearchResult] = useState(false)
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -24,8 +34,17 @@ export default function Navbar() {
     const handleClose = () => {
         setAnchorEl(null);
     };
-    return (
-        <AppBar position="sticky" color="primary" sx={{left: 0, top: 0}}>
+    const handleSidebar = () => {
+        dispatch(showSideBar());
+    }
+    const handleSearch = () => {
+        setSearchResult(true);
+    }
+
+    useOnClickOutside(searchRef, () => setSearchResult(false));
+
+    return (<Fragment>
+        <Styled.DesktopAppBar position="fixed" color="primary">
             <Styled.MenuBar>
                 <Typography variant="h6" component="div">
                     Sözlük
@@ -37,19 +56,31 @@ export default function Navbar() {
                     <Styled.SearchInputBase
                         placeholder="Hmmm... ara bir bakalım bulabilecek miyiz..."
                         inputProps={{"aria-label": "search"}}
+                        onChange={handleSearch}
+
                     />
+                    {searchResult && (<Styled.SearchResult ref={searchRef}>
+                        <ul>
+                            <li>ikonik duruş</li>
+                            <li>türkiye</li>
+                            <li>o ses türkiye</li>
+                            <li>netflix türkiye</li>
+                            <li>türkiye a milli futbol takımı</li>
+                            <li>11 haziran 2021 italya türkiye maçı</li>
+                        </ul>
+                    </Styled.SearchResult>)}
                 </Styled.Search>
                 <Styled.Icons>
-                    <Badge sx={{display: "flex", alignItems: "center"}}>
+                    <Styled.MenuItem sx={{display: "flex", alignItems: "center"}}>
                         <DarkModeIcon/>
                         <Switch onChange={e => dispatch(setMode())}/>
-                    </Badge>
-                    <Badge badgeContent={4} color="error">
+                    </Styled.MenuItem>
+                    <Styled.MenuItem badgeContent={4} color="error">
                         <MailIcon color="white"/>
-                    </Badge>
-                    <Badge badgeContent={4} color="error">
+                    </Styled.MenuItem>
+                    <Styled.MenuItem badgeContent={4} color="error">
                         <NotificationsIcon color="white"/>
-                    </Badge>
+                    </Styled.MenuItem>
                     <Avatar
                         onClick={handleClick}
                         alt="Cindy Baker"
@@ -65,16 +96,12 @@ export default function Navbar() {
                 onClose={handleClose}
                 onClick={handleClose}
                 PaperProps={{
-                    elevation: 0,
-                    sx: {
+                    elevation: 0, sx: {
                         overflow: "visible",
                         filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
                         mt: 1.5,
                         "& .MuiAvatar-root": {
-                            width: 32,
-                            height: 32,
-                            ml: -0.5,
-                            mr: 1,
+                            width: 32, height: 32, ml: -0.5, mr: 1,
                         },
                         "&:before": {
                             content: '""',
@@ -106,6 +133,26 @@ export default function Navbar() {
                     Çıkış Yap
                 </MenuItem>
             </Menu>
-        </AppBar>
-    );
+        </Styled.DesktopAppBar>
+        <Styled.MobileAppBar position="fixed" color="primary">
+            <Toolbar>
+                <StyledFab color="secondary" aria-label="add">
+                    <AddIcon/>
+                </StyledFab>
+
+                <IconButton color="inherit">
+                    <SearchIcon/>
+                </IconButton>
+                <IconButton color="inherit">
+                    <MoreIcon/>
+                </IconButton>
+                <Box sx={{flexGrow: 1}}/>
+                <IconButton color="inherit" aria-label="open drawer" onClick={handleSidebar}>
+                    {sideBar ? <CloseIcon/> : <MenuIcon/>}
+                </IconButton>
+            </Toolbar>
+        </Styled.MobileAppBar>
+    </Fragment>);
 }
+
+

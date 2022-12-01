@@ -19,13 +19,13 @@ import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import LinkIcon from '@mui/icons-material/Link';
 import BugReportIcon from '@mui/icons-material/BugReport';
 import * as Styled from "./Entry.styles";
-import {useState} from "react";
-import {useDispatch} from "react-redux";
-import {openModal} from "../../redux/modalSlice";
-import {UserInfo} from "../navbar/Navbar.styles";
-import {InfoText, ProfilePhoto} from "./Entry.styles";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { openModal } from "../../redux/modalSlice";
+import { UserInfo } from "../navbar/Navbar.styles";
+import { InfoText, ProfilePhoto } from "./Entry.styles";
 
-export default function Entry({text}) {
+export default function Entry({ text }) {
     const dispatch = useDispatch();
     const [anchorEl, setAnchorEl] = useState();
     const shareOpen = Boolean(anchorEl);
@@ -52,18 +52,18 @@ export default function Entry({text}) {
                 <Styled.EntryActions>
                     <Box>
                         <IconButton>
-                            <ArrowUpwardIcon/>
+                            <ArrowUpwardIcon />
                         </IconButton>
                         <IconButton>
-                            <ArrowDownwardIcon/>
+                            <ArrowDownwardIcon />
                         </IconButton>
                     </Box>
                     <Box>
                         <IconButton onClick={handleShare}>
-                            <IosShareIcon/>
+                            <IosShareIcon />
                         </IconButton>
                         <IconButton onClick={handleReport}>
-                            <BugReportIcon/>
+                            <BugReportIcon />
                         </IconButton>
                     </Box>
                     <Menu
@@ -97,23 +97,23 @@ export default function Entry({text}) {
                                 },
                             },
                         }}
-                        transformOrigin={{horizontal: "right", vertical: "top"}}
-                        anchorOrigin={{horizontal: "right", vertical: "bottom"}}
+                        transformOrigin={{ horizontal: "right", vertical: "top" }}
+                        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
                     >
-                        <MenuItem><FacebookIcon sx={{marginRight: "5px", color: "#4267B2"}}/> Facebook</MenuItem>
-                        <MenuItem><TwitterIcon sx={{marginRight: "5px", color: "#1DA1F2"}}/> Twitter</MenuItem>
-                        <MenuItem><WhatsAppIcon sx={{marginRight: "5px", color: "#128C7E"}}/> Whatsapp</MenuItem>
-                        <MenuItem><LinkIcon sx={{marginRight: "5px", color: "#1DB954"}}/> Entry linkini
+                        <MenuItem><FacebookIcon sx={{ marginRight: "5px", color: "#4267B2" }} /> Facebook</MenuItem>
+                        <MenuItem><TwitterIcon sx={{ marginRight: "5px", color: "#1DA1F2" }} /> Twitter</MenuItem>
+                        <MenuItem><WhatsAppIcon sx={{ marginRight: "5px", color: "#128C7E" }} /> Whatsapp</MenuItem>
+                        <MenuItem><LinkIcon sx={{ marginRight: "5px", color: "#1DB954" }} /> Entry linkini
                             kopyala</MenuItem>
                     </Menu>
                 </Styled.EntryActions>
                 <Styled.UserInfo>
-                    <Box display="flex" alignItems="center" justifyContent="center" flexDirection="column">
+                    <Box display="flex" alignItems="flex-end" justifyContent="center" flexDirection="column">
                         <Styled.InfoText>deneyelim olacak mi</Styled.InfoText>
                         <Styled.InfoText>29.05.2013 20:23</Styled.InfoText>
                     </Box>
                     <Styled.ProfilePhoto alt="test"
-                                         src="https://upload.wikimedia.org/wikipedia/commons/a/a8/Ataturk1930s.jpg"/>
+                        src="https://upload.wikimedia.org/wikipedia/commons/a/a8/Ataturk1930s.jpg" />
                 </Styled.UserInfo>
             </Styled.EntryCard>
             <Dialog

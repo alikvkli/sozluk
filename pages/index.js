@@ -4,14 +4,13 @@ import {Fragment} from "react";
 import Navbar from "../src/components/navbar/Navbar";
 import Sidebar from "../src/components/sidebar/Sidebar";
 import Feed from "../src/components/feed/Feed";
-export default function Index({mode,setMode}) {
-  return (
-    <Fragment>
-        <Navbar/>
-        <Stack direction="row" flexWrap="wrap" spacing={2} justifyContent="flex-start">
+
+export default function Index({mode, setMode}) {
+    return (
+        <Fragment>
+            <Navbar/>
             <Sidebar/>
             <Feed/>
-        </Stack>
-    </Fragment>
-  );
+        </Fragment>
+    );
 }
