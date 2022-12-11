@@ -29,6 +29,7 @@ export const Container = styled(Box)((props) => ({
         display: props.show === "true" ? 'block' : 'none',
         position: "fixed",
         top: 0,
+        left:0,
         zIndex: 2,
         width: "100%",
         height: "100%",
