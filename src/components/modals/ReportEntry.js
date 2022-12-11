@@ -10,9 +10,21 @@ import {
     InputLabel,
     Select,
     Box,
-    MenuItem, TextField
+    MenuItem, TextField, styled, Fab
 } from '@mui/material';
 import {utils} from "../../utils";
+
+const StyledDialogContent = styled(DialogContent)(({theme}) => ({
+    display: "flex",
+    flexDirection: "column",
+    [theme.breakpoints.down("sm")]: {
+        minWidth: "auto"
+    },
+    [theme.breakpoints.up("md")]: {
+        width: "600px",
+
+    }
+}));
 
 export default function ReportEntry() {
     const [open, setOpen] = useState(true);
@@ -45,7 +57,7 @@ export default function ReportEntry() {
             <DialogTitle>
                 Entry'i Raporla
             </DialogTitle>
-            <DialogContent sx={{minWidth: 500}}>
+            <StyledDialogContent>
                 <FormControl fullWidth margin="dense">
                     <InputLabel>Kategori</InputLabel>
                     <Select
@@ -58,7 +70,7 @@ export default function ReportEntry() {
                 </FormControl>
                 <TextField margin="dense" onChange={(event) => handleChange(event, "description")} multiline rows={4}
                            label="Açıklama" variant="outlined" value={inputValues.description} fullWidth/>
-            </DialogContent>
+            </StyledDialogContent>
             <DialogActions>
                 <Button onClick={handleClose}>Kapat</Button>
                 <Button autoFocus disabled={validationInputs()}>Şikayet Et</Button>

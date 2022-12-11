@@ -4,9 +4,6 @@ import {Box} from "@mui/material";
 
 export const FeedStack = styled(Stack)(({theme}) => ({
     [theme.breakpoints.up("lg")]: {
-        float: "right",
-        width: "75%",
-        paddingLeft: 20,
         marginTop: 64
     },
     [theme.breakpoints.down("lg")]: {

@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import {useDispatch, useSelector} from "react-redux";
-import {setMode, showSideBar} from "../../redux/appSlice";
+import {changeRightBar, setMode, showRightBar, showSideBar} from "../../redux/appSlice";
 import useOnClickOutside from "../../hooks/useOnClickOutside";
 
 const StyledFab = styled(Fab)({
@@ -24,7 +24,7 @@ const StyledFab = styled(Fab)({
 export default function Navbar() {
     const dispatch = useDispatch();
     const searchRef = useRef();
-    const {sideBar} = useSelector(state => state.app);
+    const {sideBar,rightBarShow} = useSelector(state => state.app);
     const [anchorEl, setAnchorEl] = useState(null);
     const [searchResult, setSearchResult] = useState(false)
     const open = Boolean(anchorEl);
@@ -40,6 +40,18 @@ export default function Navbar() {
     const handleSearch = () => {
         setSearchResult(true);
     }
+
+    const handleRightBar = type => {
+        dispatch(changeRightBar(type));
+        if(!rightBarShow){
+            dispatch(showRightBar());
+        }
+    }
+
+    const handleCloseRightBar = () => {
+        dispatch(showRightBar());
+    }
+
 
     useOnClickOutside(searchRef, () => setSearchResult(false));
 
@@ -136,16 +148,19 @@ export default function Navbar() {
         </Styled.DesktopAppBar>
         <Styled.MobileAppBar position="fixed" color="primary">
             <Toolbar>
-                <StyledFab color="secondary" aria-label="add">
-                    <AddIcon/>
+                <StyledFab color="secondary" aria-label="add" >
+                    {rightBarShow ? <CloseIcon onClick={handleCloseRightBar}/> : <AddIcon/>}
                 </StyledFab>
 
-                <IconButton color="inherit">
-                    <SearchIcon/>
+                <IconButton color="inherit" onClick={() => handleRightBar("messages")}>
+                    <MailIcon/>
                 </IconButton>
-                <IconButton color="inherit">
-                    <MoreIcon/>
+
+                <IconButton color="inherit" onClick={() => handleRightBar("notifications")}>
+                    <NotificationsIcon/>
                 </IconButton>
+
+
                 <Box sx={{flexGrow: 1}}/>
                 <IconButton color="inherit" aria-label="open drawer" onClick={handleSidebar}>
                     {sideBar ? <CloseIcon/> : <MenuIcon/>}

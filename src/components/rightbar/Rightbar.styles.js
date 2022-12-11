@@ -1,4 +1,12 @@
-import {styled, Box, List} from "@mui/material";
+import {styled, Box, List, Badge} from "@mui/material";
+
+export const MenuItem = styled(Badge)(({theme}) => ({
+    [theme.breakpoints.down("md")]: {
+        "&:not(:first-of-type)": {
+            display: "none",
+        }
+    }
+}));
 
 export const Container = styled(Box)((props) => ({
     display: "flex",
@@ -10,8 +18,7 @@ export const Container = styled(Box)((props) => ({
         top: "64px",
         bottom: 0,
         right: 0,
-        left: 0,
-        width:"25%",
+        width: "25%",
         height: "100%",
         boxShadow: "0 2px 4px rgba(0,0,0,0.16)",
         display: "flex",
@@ -23,7 +30,7 @@ export const Container = styled(Box)((props) => ({
         position: "fixed",
         top: 0,
         zIndex: 2,
-        width:"100%",
+        width: "100%",
         height: "100%",
     }
 }));
@@ -38,6 +45,7 @@ export const ListHeader = styled(Box)(({theme}) => ({
 export const CustomList = styled(List)(({theme}) => ({
     maxHeight: "800px",
     overflowY: "auto",
+    padding:16,
     [theme.breakpoints.down("md")]: {
         paddingBottom:"80px",
     },
