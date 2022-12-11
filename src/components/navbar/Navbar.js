@@ -24,7 +24,7 @@ const StyledFab = styled(Fab)({
 export default function Navbar() {
     const dispatch = useDispatch();
     const searchRef = useRef();
-    const {sideBar,rightBarShow} = useSelector(state => state.app);
+    const {sideBar, rightBarShow} = useSelector(state => state.app);
     const [anchorEl, setAnchorEl] = useState(null);
     const [searchResult, setSearchResult] = useState(false)
     const open = Boolean(anchorEl);
@@ -43,12 +43,12 @@ export default function Navbar() {
 
     const handleRightBar = type => {
         dispatch(changeRightBar(type));
-        if(!rightBarShow){
+        if (!rightBarShow) {
             dispatch(showRightBar());
         }
     }
 
-    const handleCloseRightBar = () => {
+    const handleHideRightBar = () => {
         dispatch(showRightBar());
     }
 
@@ -148,8 +148,8 @@ export default function Navbar() {
         </Styled.DesktopAppBar>
         <Styled.MobileAppBar position="fixed" color="primary">
             <Toolbar>
-                <StyledFab color="secondary" aria-label="add" >
-                    {rightBarShow ? <CloseIcon onClick={handleCloseRightBar}/> : <AddIcon/>}
+                <StyledFab color="secondary" aria-label="add">
+                    <AddIcon/>
                 </StyledFab>
 
                 <IconButton color="inherit" onClick={() => handleRightBar("messages")}>
@@ -159,12 +159,17 @@ export default function Navbar() {
                 <IconButton color="inherit" onClick={() => handleRightBar("notifications")}>
                     <NotificationsIcon/>
                 </IconButton>
-
-
                 <Box sx={{flexGrow: 1}}/>
-                <IconButton color="inherit" aria-label="open drawer" onClick={handleSidebar}>
-                    {sideBar ? <CloseIcon/> : <MenuIcon/>}
-                </IconButton>
+                {rightBarShow ? (
+                    <IconButton color="inherit" aria-label="open drawer" onClick={handleHideRightBar}>
+                        <CloseIcon/>
+                    </IconButton>
+                ) : (
+                    <IconButton color="inherit" aria-label="open drawer" onClick={handleSidebar}>
+                        {sideBar ? <CloseIcon/> : <MenuIcon/>}
+                    </IconButton>
+                )}
+
             </Toolbar>
         </Styled.MobileAppBar>
     </Fragment>);

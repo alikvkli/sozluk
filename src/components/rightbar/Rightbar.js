@@ -20,7 +20,6 @@ export default function Rightbar() {
     const {rightBar,rightBarShow} = useSelector(state => state.app);
     return (<Styled.Container show={rightBarShow.toString()}>
         <Styled.ListHeader>
-
             <IconButton color={rightBar === "notifications" ? 'error' : 'primary'} sx={{borderRadius: "0", gap: "5px"}}
                         onClick={() => handleTab("notifications")}>
                 <NotificationsIcon color="white"/>
